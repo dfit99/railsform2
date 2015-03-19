@@ -1,0 +1,22 @@
+class Item < ActiveRecord::Base
+
+belongs_to :Type
+
+def self.search(params)
+    # where(:title, query) -> This would return an exact match of the query
+    search_word = "title LIKE ?"
+    search_types = "type_id = ?"
+    container = Array.new
+    container << search_word << search_types
+    query  = container.join(" and ")
+    Item.where(query, "%#{params[:title]}%", "%#{params[:type_id]}%")
+
+    
+end
+
+
+
+
+end
+
+
